@@ -1,0 +1,18 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.pipeworx-io/quotes",
+  "title": "Quotes",
+  "description": "Quotes MCP — citation-grade quote API for public-domain authors.",
+  "version": "0.1.0",
+  "websiteUrl": "https://pipeworx.io/packs/quotes",
+  "repository": {
+    "url": "https://github.com/pipeworx-io/mcp-quotes",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://gateway.pipeworx.io/quotes/mcp"
+    }
+  ]
+}
