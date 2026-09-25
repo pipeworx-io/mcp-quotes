@@ -1,11 +1,19 @@
 interface McpToolDefinition {
   name: string;
   description: string;
+  /** Human-facing one-liner (fleet #1967). Optional; consumers fall back to
+   *  description. Kept in step with shared/src/types.ts — scripts/lib/
+   *  check-inlined-types.mjs reports drift at publish time. */
+  summary?: string;
   inputSchema: {
     type: 'object';
     properties: Record<string, unknown>;
     required?: string[];
+    anyOf?: Array<{ required: string[] }>;
+    oneOf?: Array<{ required: string[] }>;
+    allOf?: Array<{ required: string[] }>;
   };
+  outputSchema?: Record<string, unknown>;
 }
 
 interface McpToolExport {
@@ -190,6 +198,12 @@ const tools: McpToolExport['tools'] = [
 ];
 
 async function callTool(name: string, args: Record<string, unknown>): Promise<unknown> {
+  // Gateway-injected (fleet #2191) only for get_scene/get_act/get_chapter —
+  // the one work's full JSON, keyed off the same author_id/work_slug the call
+  // already named. '' on a KV outage/timeout or a direct pack call outside
+  // the gateway (e.g. a unit test); list_full_text_works never needs this,
+  // its output comes from the small static works-meta.json.
+  const fullTextWork = typeof args._quotesFullTextWork === 'string' ? args._quotesFullTextWork : '';
   switch (name) {
     case 'random_quote': {
       const result = randomQuote({
@@ -248,6 +262,7 @@ async function callTool(name: string, args: Record<string, unknown>): Promise<un
 
     case 'get_scene': {
       const scene = getScene(
+        fullTextWork,
         args.author_id as string,
         args.work_slug as string,
         args.act as number,
@@ -270,13 +285,13 @@ async function callTool(name: string, args: Record<string, unknown>): Promise<un
     }
 
     case 'get_act': {
-      const act = getAct(args.author_id as string, args.work_slug as string, args.act as number);
+      const act = getAct(fullTextWork, args.author_id as string, args.work_slug as string, args.act as number);
       if (!act) {
         return {
           error: `Act ${args.act} of ${args.author_id}/${args.work_slug} not found. Use list_full_text_works to see what is available.`,
         };
       }
-      const work = getFullWorkByAuthorSlug(args.author_id as string, args.work_slug as string);
+      const work = getFullWorkByAuthorSlug(fullTextWork, args.author_id as string, args.work_slug as string);
       return {
         author_id: args.author_id,
         work_slug: args.work_slug,
@@ -289,6 +304,7 @@ async function callTool(name: string, args: Record<string, unknown>): Promise<un
 
     case 'get_chapter': {
       const chapter = getChapter(
+        fullTextWork,
         args.author_id as string,
         args.work_slug as string,
         args.chapter as number,

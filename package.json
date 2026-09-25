@@ -1,20 +1,32 @@
 {
   "name": "@pipeworx/mcp-quotes",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Quotes MCP — citation-grade quote API for public-domain authors.",
   "type": "module",
   "main": "src/index.ts",
   "types": "src/index.ts",
+  "bin": {
+    "mcp-quotes": "bin/cli.js"
+  },
   "keywords": ["mcp", "mcp-server", "model-context-protocol", "pipeworx", "quotes"],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pipeworx-io/mcp-quotes"
+    "url": "git+https://github.com/pipeworx-io/mcp-quotes.git"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"
   },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "tsx": "^4.19.0"
+  },
   "devDependencies": {
-    "typescript": "^5.7.0"
+    "typescript": "^5.9.3",
+    "@cloudflare/workers-types": "^4.20260405.1"
+  },
+  "pipeworx": {
+    "sourceHash": "v1-2e60802360aa37b64b1b1b19b231b0e46f59ad9e2f770e66795b27f4c6bc6cca",
+    "sourceCommit": "00c836ddeaecbdd581dcfb0fb1842efea104006e"
   }
 }
