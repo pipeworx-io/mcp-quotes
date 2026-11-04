@@ -3,7 +3,7 @@
   "name": "io.github.pipeworx-io/quotes",
   "title": "Quotes",
   "description": "Quotes MCP — citation-grade quote API for public-domain authors.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "websiteUrl": "https://pipeworx.io/packs/quotes",
   "repository": {
     "url": "https://github.com/pipeworx-io/mcp-quotes",

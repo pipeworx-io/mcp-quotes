@@ -1,6 +1,6 @@
 {
   "name": "@pipeworx/mcp-quotes",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Quotes MCP — citation-grade quote API for public-domain authors.",
   "type": "module",
   "main": "lib/index.js",
@@ -27,7 +27,7 @@
     "mode": "gateway",
     "slug": "quotes",
     "gatewaySlug": "quotes",
-    "sourceHash": "v1-1b3ddd9b5c93606a8ec897e4acd9c0385c98d950a3aa954588c9c35088bef23f",
-    "sourceCommit": "6bae4cfa7b6a73bbe014dc8820a19c80c842b21e"
+    "sourceHash": "v1-86b170a2d13106ead38927598b85de89eb8aec5fdb482f02146358c145f79a9b",
+    "sourceCommit": "db27387ed3ef7ec4805d465f7964a7f65f937006"
   }
 }
